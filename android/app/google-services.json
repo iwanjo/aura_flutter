@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791608561266",
+    "project_id": "aura-2db34",
+    "storage_bucket": "aura-2db34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791608561266:android:66c69eb8dafe48594d3ceb",
+        "android_client_info": {
+          "package_name": "com.example.aura_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791608561266-5erqoqt54au3t0hu7pt15lb5qrdeu2jt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSxQN1fn5BI5BCAUoWZ74dyDDrwmTz6hU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791608561266-5erqoqt54au3t0hu7pt15lb5qrdeu2jt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
