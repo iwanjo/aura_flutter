@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:aura_flutter/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -179,26 +180,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                   Padding(
-                    // ignore: prefer_const_constructors
                     padding:
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            const Color(0xff9f2940),
+                    child: isLoading
+                        ? CircularProgressIndicator()
+                        : SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                    const Color(0xff9f2940),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    registerToFirebase();
+                                  }
+                                },
+                                child: Text(
+                                  "Continue",
+                                  style: GoogleFonts.nunitoSans(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Continue",
-                          style: GoogleFonts.nunitoSans(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
                   ),
+                  // Padding(
+                  //   // ignore: prefer_const_constructors
+                  //   padding:
+                  //       EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                  //   child: SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //       style: ButtonStyle(
+                  //         backgroundColor: MaterialStateProperty.all(
+                  //           const Color(0xff9f2940),
+                  //         ),
+                  //       ),
+                  //       onPressed: () {},
+                  //       child: Text(
+                  //         "Continue",
+                  //         style: GoogleFonts.nunitoSans(
+                  //             fontSize: 16.0, fontWeight: FontWeight.bold),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
                   SizedBox(
                     height: 20,
@@ -276,18 +306,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void registerToFirebase() {
-    try {
-      firebaseAuth.createUserWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      isLoading = false;
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => PricingPlan()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        print('The account already exists');
-      }
-    } catch (e) {
-      print(e);
-    }
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) {
+      dbReference.child(result.user!.uid).set({
+        "fullname": fullNameController.text,
+        "email": emailController.text,
+      }).then((res) {
+        isLoading = false;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Home(
+                    uid: result.user!.uid,
+                  )),
+        );
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Sorry, there's an error"),
+              content: Text(err.message),
+              actions: [
+                TextButton(
+                  child: Text("Okay"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    fullNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 }
