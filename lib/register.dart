@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:aura_flutter/home.dart';
+import 'package:aura_flutter/pageroutes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -208,27 +209,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 )),
                           ),
                   ),
-                  // Padding(
-                  //   // ignore: prefer_const_constructors
-                  //   padding:
-                  //       EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                  //   child: SizedBox(
-                  //     width: double.infinity,
-                  //     child: ElevatedButton(
-                  //       style: ButtonStyle(
-                  //         backgroundColor: MaterialStateProperty.all(
-                  //           const Color(0xff9f2940),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {},
-                  //       child: Text(
-                  //         "Continue",
-                  //         style: GoogleFonts.nunitoSans(
-                  //             fontSize: 16.0, fontWeight: FontWeight.bold),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
 
                   SizedBox(
                     height: 20,
@@ -318,7 +298,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => Home(
+              builder: (context) => PageRoutes(
                     uid: result.user!.uid,
                   )),
         );

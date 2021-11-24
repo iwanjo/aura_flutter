@@ -38,6 +38,8 @@ dependencies:
     git:
       url: https://github.com/DPLYR-dev/SplashScreenFlutterPackage.git
       ref: master
+  salomon_bottom_bar: ^3.1.0
+
 
 
 dev_dependencies:

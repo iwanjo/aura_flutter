@@ -41,7 +41,7 @@ class AuraSplash extends StatelessWidget {
       loadingText: Text(""),
       loadingTextPadding: EdgeInsets.all(0),
       useLoader: true,
-      navigateAfterSeconds: result != null ? Home() : RegisterScreen(),
+      navigateAfterSeconds: result != null ? PageRoutes() : RegisterScreen(),
       seconds: 4,
       title: Text(
         "Welcome to Aura",
