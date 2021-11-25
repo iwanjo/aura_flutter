@@ -7,6 +7,8 @@ import 'package:aura_flutter/therapy.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class PageRoutes extends StatefulWidget {
   final String? uid;
@@ -18,9 +20,13 @@ class PageRoutes extends StatefulWidget {
 
 class _PageRoutesState extends State<PageRoutes> {
   int _selectedIndex = 0;
+  final user = FirebaseAuth.instance.currentUser;
+
   // ignore: prefer_final_fields
-  List<Widget> _widgetOptions = <Widget>[
-    Home(),
+  late final List<Widget> _widgetOptions = <Widget>[
+    Home(
+      uid: user!.uid,
+    ),
     CommunitySpaces(),
     TherapyHome(),
     Profile()

@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       textCapitalization: TextCapitalization.words,
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
-                          return "Please enter a password";
+                          return "Please enter an 8 character password";
                         } else if (value != null && value.length < 8) {
                           return "Please enter a password at least 8 characters long.";
                         }
