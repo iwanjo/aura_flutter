@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 8.0),
+                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
                 // margin: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
@@ -130,6 +130,7 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 28,
               ),
+
               Text(
                 "Daily Reads",
                 style: GoogleFonts.nunitoSans(
@@ -138,25 +139,174 @@ class _HomeState extends State<Home> {
                 ),
               ),
 
-              // ListView.builder(
-              //   physics: BouncingScrollPhysics(),
-              //   shrinkWrap: true,
-              //   itemCount: books.length,
-              //   itemBuilder: (context, index) {
-              //     return GestureDetector();
-              //   },
-              // ),
-
-              // Start of Podcasts Section
               SizedBox(
                 height: 28,
               ),
-              Text(
-                "Popular Podcasts",
-                style: GoogleFonts.nunitoSans(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
+
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+                // margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  // ignore: prefer_const_literals_to_create_immutables
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/book1.jpeg",
+                      width: 80.0,
+                      height: 80.0,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "The Art of Loving",
+                              style: GoogleFonts.nunitoSans(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Erich Fromm",
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 14.0, fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+                // margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  // ignore: prefer_const_literals_to_create_immutables
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/book2.jpeg",
+                      width: 80.0,
+                      height: 80.0,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "The Miracle Morning",
+                              style: GoogleFonts.nunitoSans(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Hal Elrod",
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 14.0, fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+                // margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  // ignore: prefer_const_literals_to_create_immutables
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/book3.jpeg",
+                      width: 80.0,
+                      height: 80.0,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Unbeatable Mind",
+                              style: GoogleFonts.nunitoSans(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Mark Divine",
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 14.0, fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 28,
               ),
             ],
           ),
