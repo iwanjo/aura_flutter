@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:aura_flutter/login.dart';
-import 'package:aura_flutter/register.dart';
+import 'package:aura_flutter/views/login.dart';
+import 'package:aura_flutter/views/register.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';

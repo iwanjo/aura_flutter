@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:aura_flutter/community.dart';
-import 'package:aura_flutter/home.dart';
-import 'package:aura_flutter/profile.dart';
-import 'package:aura_flutter/therapy.dart';
+import 'package:aura_flutter/views/community.dart';
+import 'package:aura_flutter/views/home.dart';
+import 'package:aura_flutter/views/profile.dart';
+import 'package:aura_flutter/views/therapy.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -27,8 +27,10 @@ class _PageRoutesState extends State<PageRoutes> {
     Home(
       uid: user!.uid,
     ),
+    TherapyHome(
+      uid: user!.uid,
+    ),
     CommunitySpaces(),
-    TherapyHome(),
     Profile()
   ];
   @override

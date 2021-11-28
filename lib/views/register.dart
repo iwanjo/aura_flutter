@@ -1,25 +1,31 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:aura_flutter/home.dart';
+import 'package:aura_flutter/views/home.dart';
 import 'package:aura_flutter/pageroutes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:aura_flutter/register.dart';
+import 'package:aura_flutter/views/plan.dart';
+import 'package:aura_flutter/views/login.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DatabaseReference dbReference =
+      FirebaseDatabase.instance.reference().child("AuraUsers");
   bool _hiddenPass = true;
+  bool _checked = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,7 @@ class _LoginState extends State<Login> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            // ignore: prefer_const_constructors
             SizedBox(
               height: 50,
             ),
@@ -38,7 +45,7 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 30.0, horizontal: 16.0),
                   child: Text(
-                    "Welcome back to Aura",
+                    "Create an account with Aura",
                     style: GoogleFonts.nunitoSans(
                         color: Colors.black,
                         fontSize: 24.0,
@@ -52,6 +59,37 @@ class _LoginState extends State<Login> {
               key: _formKey,
               child: SingleChildScrollView(
                 child: Column(children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 16.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          fillColor: Colors.grey[100],
+                          filled: true,
+                          labelText: "Full Name",
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          hintText: 'Enter your full name',
+                          hintStyle: GoogleFonts.nunitoSans(
+                              color: Colors.grey, fontSize: 15.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                                width: 3, color: Colors.grey.shade200),
+                          )),
+                      controller: fullNameController,
+                      style: GoogleFonts.nunitoSans(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                      ),
+                      textCapitalization: TextCapitalization.words,
+                      validator: (String? value) {
+                        if (value != null && value.isEmpty) {
+                          return "Please enter your full name";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 16.0),
@@ -115,13 +153,32 @@ class _LoginState extends State<Login> {
                       textCapitalization: TextCapitalization.words,
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
-                          return "Please enter a password";
+                          return "Please enter an 8 character password";
                         } else if (value != null && value.length < 8) {
                           return "Please enter a password at least 8 characters long.";
                         }
                         return null;
                       },
                     ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Checkbox(
+                          activeColor: const Color(0xff9f2940),
+                          value: _checked,
+                          onChanged: (value) {
+                            setState(() {
+                              _checked = !_checked;
+                            });
+                          }),
+                      Text(
+                        "I agree to Aura's terms and conditions",
+                        style: GoogleFonts.nunitoSans(
+                            color: Colors.black,
+                            fontSize: 14.0,
+                            letterSpacing: .3),
+                      )
+                    ],
                   ),
                   Padding(
                     padding:
@@ -141,7 +198,7 @@ class _LoginState extends State<Login> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    loginToFirebase();
+                                    registerToFirebase();
                                   }
                                 },
                                 child: Text(
@@ -161,7 +218,7 @@ class _LoginState extends State<Login> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Or sign in with",
+                      "Or register with",
                       style: GoogleFonts.nunitoSans(
                         color: Colors.grey[600],
                         fontSize: 14.0,
@@ -203,15 +260,13 @@ class _LoginState extends State<Login> {
                     alignment: Alignment.center,
                     child: TextButton(
                       child: Text(
-                        "Don't have an account? Register here",
+                        "Already have an account? Login here",
                         style: GoogleFonts.nunitoSans(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       },
                     ),
                   ),
@@ -230,16 +285,49 @@ class _LoginState extends State<Login> {
     });
   }
 
-  void loginToFirebase() {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
+  void registerToFirebase() {
+    firebaseAuth
+        .createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text)
         .then((result) {
-      isLoading = false;
-      Navigator.pushReplacement(
+      dbReference.child(result.user!.uid).set({
+        "fullname": fullNameController.text,
+        "email": emailController.text,
+      }).then((res) {
+        isLoading = false;
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => PageRoutes(uid: result.user!.uid)));
+              builder: (context) => PageRoutes(
+                    uid: result.user!.uid,
+                  )),
+        );
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Sorry, there's an error"),
+              content: Text(err.message),
+              actions: [
+                TextButton(
+                  child: Text("Okay"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    fullNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
   }
 }

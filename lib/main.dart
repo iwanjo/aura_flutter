@@ -6,8 +6,8 @@ import 'package:splashscreen/splashscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:aura_flutter/register.dart';
-import 'package:aura_flutter/home.dart';
+import 'package:aura_flutter/views/register.dart';
+import 'package:aura_flutter/views/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
