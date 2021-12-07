@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:aura_flutter/component/therapists_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -133,7 +134,7 @@ class _TherapyHomeState extends State<TherapyHome>
                 child: TabBarView(
                   controller: _tabBarController,
                   children: [
-                    Text("data"),
+                    allTherapistListView(),
                     Text("data2"),
                     Text("data3"),
                     Text("data4"),
@@ -254,5 +255,36 @@ class _TherapyHomeState extends State<TherapyHome>
             ],
           ),
         ));
+  }
+
+  allTherapistListView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      child: Column(
+        children: <Widget>[
+          TherapistView(
+            therapistName: 'Chisom Ikenna',
+            role: 'Clinical Therapist',
+            image: 'assets/therapist1.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Nana Njiru',
+            role: 'General Counsellor',
+            image: 'assets/therapist5.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Sarah Mwale',
+            role: 'Psychiatrist',
+            image: 'assets/therapist3.jpg',
+          ),
+        ],
+      ),
+    );
   }
 }

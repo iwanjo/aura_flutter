@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:aura_flutter/views/register.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

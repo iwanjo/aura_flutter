@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:aura_flutter/views/plan.dart';
 import 'package:aura_flutter/views/login.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -265,8 +266,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontSize: 16.0, fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: Login(),
+                                type: PageTransitionType.leftToRightWithFade));
                       },
                     ),
                   ),
