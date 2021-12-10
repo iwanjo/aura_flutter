@@ -22,7 +22,7 @@ class _TherapyHomeState extends State<TherapyHome>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController _tabBarController = TabController(length: 6, vsync: this);
+    TabController _tabBarController = TabController(length: 5, vsync: this);
     final box = Container(
       height: 44,
       width: 44,
@@ -122,24 +122,22 @@ class _TherapyHomeState extends State<TherapyHome>
                     Tab(text: "All"),
                     Tab(text: "Anxiety"),
                     Tab(text: "Depression"),
-                    Tab(text: "Stress"),
                     Tab(text: "Relationship"),
                     Tab(text: "Marital"),
                   ],
                 ),
               ),
               Container(
-                height: 500,
+                height: 1300,
                 padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                 child: TabBarView(
                   controller: _tabBarController,
                   children: [
                     allTherapistListView(),
-                    Text("data2"),
-                    Text("data3"),
-                    Text("data4"),
-                    Text("data5"),
-                    Text("data6"),
+                    anxietyTherapistView(),
+                    depressionTherapistView(),
+                    relationshipTherapistView(),
+                    maritalTherapistView(),
                   ],
                 ),
               ),
@@ -264,7 +262,7 @@ class _TherapyHomeState extends State<TherapyHome>
         children: <Widget>[
           TherapistView(
             therapistName: 'Chisom Ikenna',
-            role: 'Clinical Therapist',
+            role: 'Therapist',
             image: 'assets/therapist1.jpg',
           ),
           SizedBox(
@@ -273,7 +271,7 @@ class _TherapyHomeState extends State<TherapyHome>
           TherapistView(
             therapistName: 'Nana Njiru',
             role: 'General Counsellor',
-            image: 'assets/therapist5.jpg',
+            image: 'assets/therapist4.jpg',
           ),
           SizedBox(
             height: 20,
@@ -282,6 +280,189 @@ class _TherapyHomeState extends State<TherapyHome>
             therapistName: 'Sarah Mwale',
             role: 'Psychiatrist',
             image: 'assets/therapist3.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Jennie Carter',
+            role: 'Marital Counsellor',
+            image: 'assets/therapist6.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Ikenna Moyo',
+            role: 'Relationship Counsellor',
+            image: 'assets/therapist7.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Chebet Linda',
+            role: 'Psychiatrist',
+            image: 'assets/therapist8.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Gina Kinjuri',
+            role: 'Therapist',
+            image: 'assets/therapist9.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Stephen Njuho',
+            role: 'Marital Counsellor',
+            image: 'assets/therapist12.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Nailah Nkhoma',
+            role: 'Therapist',
+            image: 'assets/therapist10.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Issa Hussein',
+            role: 'Therapist',
+            image: 'assets/therapist14.jpg',
+          ),
+        ],
+      ),
+    );
+  }
+
+  anxietyTherapistView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      child: Column(
+        children: <Widget>[
+          TherapistView(
+            therapistName: 'Chisom Ikenna',
+            role: 'Therapist',
+            image: 'assets/therapist1.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Gina Kinjuri',
+            role: 'Therapist',
+            image: 'assets/therapist9.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Nailah Nkhoma',
+            role: 'Therapist',
+            image: 'assets/therapist10.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Issa Hussein',
+            role: 'Therapist',
+            image: 'assets/therapist14.jpg',
+          ),
+        ],
+      ),
+    );
+  }
+
+  depressionTherapistView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      child: Column(
+        children: <Widget>[
+          TherapistView(
+            therapistName: 'Chebet Linda',
+            role: 'Psychiatrist',
+            image: 'assets/therapist8.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Nana Njiru',
+            role: 'General Counsellor',
+            image: 'assets/therapist4.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Gina Kinjuri',
+            role: 'Therapist',
+            image: 'assets/therapist9.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Nailah Nkhoma',
+            role: 'Therapist',
+            image: 'assets/therapist10.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
+  relationshipTherapistView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      child: Column(
+        children: <Widget>[
+          TherapistView(
+            therapistName: 'Ikenna Moyo',
+            role: 'Relationship Counsellor',
+            image: 'assets/therapist7.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Gina Kinjuri',
+            role: 'Therapist',
+            image: 'assets/therapist9.jpg',
+          ),
+        ],
+      ),
+    );
+  }
+
+  maritalTherapistView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+      child: Column(
+        children: <Widget>[
+          TherapistView(
+            therapistName: 'Jennie Carter',
+            role: 'Marital Counsellor',
+            image: 'assets/therapist6.jpg',
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TherapistView(
+            therapistName: 'Stephen Njuho',
+            role: 'Marital Counsellor',
+            image: 'assets/therapist12.jpg',
           ),
         ],
       ),
