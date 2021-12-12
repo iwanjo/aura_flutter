@@ -18,9 +18,9 @@ class TherapistView extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => TherapistInformation(
-              therapistName: therapistName,
-              role: role,
-              image: image,
+              therapistName: this.therapistName,
+              role: this.role,
+              image: this.image,
             ),
           ),
         );
