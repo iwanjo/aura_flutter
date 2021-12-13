@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'dart:io' as io;
+import 'package:aura_flutter/component/success_support_space.dart';
+import 'package:aura_flutter/component/support_space_view.dart';
+import 'package:aura_flutter/views/login.dart';
 import 'package:aura_flutter/views/support_spaces.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -11,15 +14,20 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:page_transition/page_transition.dart';
 
 class CreateSupportSpace extends StatefulWidget {
-  const CreateSupportSpace({Key? key}) : super(key: key);
+  final String? uid;
+
+  const CreateSupportSpace({Key? key, this.uid}) : super(key: key);
 
   @override
   _CreateSupportSpaceState createState() => _CreateSupportSpaceState();
 }
 
 class _CreateSupportSpaceState extends State<CreateSupportSpace> {
+  final user = FirebaseAuth.instance.currentUser;
+
   final TextEditingController spaceNameController = TextEditingController();
   final TextEditingController spaceDescriptionController =
       TextEditingController();
@@ -92,6 +100,7 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
 
   Future uploadImageToFirebase(BuildContext context) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('logos')
@@ -103,6 +112,12 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
     firebase_storage.UploadTask uploadTask;
     uploadTask = ref.putFile(io.File(image!.path), metadata);
 
+    uploadTask.then((TaskSnapshot taskSnapshot) {
+      taskSnapshot.ref
+          .getDownloadURL()
+          .then((imageUrl) => {captureData(imageUrl)});
+    });
+
     firebase_storage.UploadTask task = await Future.value(uploadTask);
     Future.value(uploadTask)
         .then((value) => {print("Upload file path ${value.ref.fullPath}")})
@@ -112,6 +127,7 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
 
   Future uploadBannerImageToFirebase(BuildContext context) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    captureData(fileName);
     firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
         .ref()
         .child('banners')
@@ -123,6 +139,12 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
     firebase_storage.UploadTask uploadTask;
     uploadTask = ref.putFile(io.File(image!.path), metadata);
 
+    uploadTask.then((TaskSnapshot taskSnapshot) {
+      taskSnapshot.ref
+          .getDownloadURL()
+          .then((imageUrl) => {captureData(imageUrl)});
+    });
+
     firebase_storage.UploadTask task = await Future.value(uploadTask);
     Future.value(uploadTask)
         .then((value) => {print("Upload file path ${value.ref.fullPath}")})
@@ -130,11 +152,14 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
             {print("Upload file path error ${error.toString()} ")});
   }
 
-  captureData() {
+  captureBannerImg(String bannerUrl) {}
+
+  captureData(String imageUrl) {
     FirebaseFirestore.instance.collection("supportSpaces").add({
       'spaceName': spaceNameController.text,
       'spaceDescription': spaceDescriptionController.text,
-      // 'imageUrl': imageUrl,
+      'logoUrl': imageUrl,
+      'bannerImg': imageUrl,
       // 'bannerImg': bannerImgUrl,
     });
   }
@@ -142,7 +167,11 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
   runAll() {
     uploadImageToFirebase(context);
     uploadBannerImageToFirebase(context);
-    captureData();
+    Navigator.push(
+        context,
+        PageTransition(
+            child: SuccessCreateSpace(),
+            type: PageTransitionType.leftToRightWithFade));
   }
 
   @override
@@ -247,7 +276,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
               fontSize: 15.0,
             ),
             controller: spaceDescriptionController,
-            textCapitalization: TextCapitalization.words,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
                 fillColor: Colors.grey[100],
