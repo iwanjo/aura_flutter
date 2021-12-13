@@ -30,7 +30,7 @@ class _PageRoutesState extends State<PageRoutes> {
     TherapyHome(
       uid: user!.uid,
     ),
-    CommunitySpaces(),
+    CommunitySpaces(uid: user!.uid),
     Profile()
   ];
   @override

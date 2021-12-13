@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:aura_flutter/views/therapy.dart';
-import 'package:aura_flutter/component/therapists_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class TherapistInformation extends StatefulWidget {
   var therapistName;
@@ -20,6 +20,11 @@ class _TherapistInformationState extends State<TherapistInformation> {
   Widget build(BuildContext context) {
     String name = this.widget.therapistName;
     final first = name.split(" ");
+    bool isLoading = false;
+    final _formKey = GlobalKey<FormState>();
+    FirebaseAuth fbaseAuth = FirebaseAuth.instance;
+    DatabaseReference databaseReference =
+        FirebaseDatabase.instance.reference().child("TherapySessions");
 
     return Scaffold(
       appBar: AppBar(
@@ -121,6 +126,13 @@ class _TherapistInformationState extends State<TherapistInformation> {
                 letterSpacing: .03,
               ),
               textAlign: TextAlign.justify,
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Form(
+              child: Text("Choose a Date"),
+              key: _formKey,
             ),
           ],
         ),
