@@ -1,13 +1,17 @@
 import 'package:aura_flutter/views/therapist_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TherapistView extends StatelessWidget {
+  String? uid;
+  final user = FirebaseAuth.instance.currentUser;
+
   var therapistName;
   var role;
   var image;
 
-  TherapistView({Key? key, this.therapistName, this.role, this.image})
+  TherapistView({Key? key, this.therapistName, this.role, this.image, this.uid})
       : super(key: key);
 
   @override
@@ -21,6 +25,7 @@ class TherapistView extends StatelessWidget {
               therapistName: this.therapistName,
               role: this.role,
               image: this.image,
+              uid: user!.uid,
             ),
           ),
         );

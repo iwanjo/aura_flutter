@@ -315,7 +315,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
               style: GoogleFonts.nunitoSans(color: Colors.white),
             ),
           ),
-          // TextButton(onPressed: uploadFile, child: Text("upload"))
         ]),
       ),
     );
