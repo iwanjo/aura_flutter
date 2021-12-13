@@ -163,12 +163,12 @@ class _SuccessCreateBookingState extends State<SuccessCreateBooking> {
                             ),
                           ),
                           onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     PageTransition(
-                            //         child: PageRoutes(),
-                            //         type: PageTransitionType
-                            //             .leftToRightWithFade));
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    child: PageRoutes(),
+                                    type: PageTransitionType
+                                        .leftToRightWithFade));
                           },
                           child: Text(
                             "Return Home",
