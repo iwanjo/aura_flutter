@@ -1,3 +1,4 @@
+import 'package:aura_flutter/component/create_support_space.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -127,7 +128,12 @@ class _SupportSpacesState extends State<SupportSpaces>
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: const Color(0xff9f2940),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => CreateSupportSpace()),
+          );
+        },
       ),
     );
   }
