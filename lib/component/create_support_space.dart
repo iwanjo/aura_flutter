@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'dart:io' as io;
 import 'package:aura_flutter/component/success_support_space.dart';
-import 'package:aura_flutter/component/support_space_view.dart';
-import 'package:aura_flutter/views/login.dart';
-import 'package:aura_flutter/views/support_spaces.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -223,8 +219,8 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
               ? Image.file(bannerImage!,
                   width: MediaQuery.of(context).size.width, height: 100)
               : Container(
-                  width: 80,
-                  height: 80,
+                  width: double.infinity,
+                  height: 90,
                   color: Colors.grey[300],
                   child: Center(
                     child: TextButton(

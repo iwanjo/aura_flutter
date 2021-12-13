@@ -1,4 +1,5 @@
 import 'package:aura_flutter/component/create_support_space.dart';
+import 'package:aura_flutter/component/support_space_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -121,6 +122,23 @@ class _SupportSpacesState extends State<SupportSpaces>
                 ],
               ),
             ),
+            Container(
+              height: 1300,
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+              child: TabBarView(
+                controller: _spaceTabBarController,
+                children: [
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                  allSpacesView(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -134,6 +152,59 @@ class _SupportSpacesState extends State<SupportSpaces>
             MaterialPageRoute(builder: (context) => CreateSupportSpace()),
           );
         },
+      ),
+    );
+  }
+
+  allSpacesView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          SupportSpaceView(
+            spaceName: "Healthy Living",
+            spaceCategory: "Health",
+            spaceDescription:
+                "We are an open community of all people who are keen on embracing healthy living habits and changing their perspective on diet and exercise.",
+            spaceMembers: "392 members",
+            spaceImg: "assets/healthy.png",
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          SupportSpaceView(
+            spaceName: "Financial Growth",
+            spaceCategory: "Financial",
+            spaceDescription:
+                "Welcome to Financial Growth. This support space exists to share stories of carefully managing one's finances, ethically growing one's money and great investment topics.",
+            spaceMembers: "456 members",
+            spaceImg: "assets/profits.png",
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          SupportSpaceView(
+            spaceName: "Fitness Faction",
+            spaceDescription:
+                "This is Fitness Faction. Feel free to join our community. We know how hard it is to maintain a consistent health and fitness regiment. That's why we created this support space, to help motivate all among us to keep going and surpass our limits.",
+            spaceCategory: "Health",
+            spaceMembers: "532 members",
+            spaceImg: "assets/fitness.png",
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          SupportSpaceView(
+            spaceName: "For Sobriety",
+            spaceCategory: "Addiction",
+            spaceDescription:
+                "Beating an addiction is hard without support or guidance. For Sobriety is a group dedicated to ensuring we can all beat the odds and become sober with an extensive support unit.",
+            spaceMembers: "197 members",
+            spaceImg: "assets/alcohol.png",
+          ),
+        ],
       ),
     );
   }

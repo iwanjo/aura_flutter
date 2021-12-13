@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
                                 Text(
                                   "Welcome, ",
                                   style: GoogleFonts.nunitoSans(
-                                      fontSize: 18.0,
+                                      fontSize: 17.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 UserDetails,
@@ -123,8 +123,8 @@ class _HomeState extends State<Home> {
                           ]),
                       Image.asset(
                         "assets/aurabot.png",
-                        width: 110.0,
-                        height: 110.0,
+                        width: 100.0,
+                        height: 100.0,
                       ),
                     ],
                   ),

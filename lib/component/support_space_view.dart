@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SupportSpaceView extends StatefulWidget {
   var spaceName;
+  var spaceDescription;
   var spaceCategory;
   var spaceMembers;
   var spaceImg;
@@ -12,6 +13,7 @@ class SupportSpaceView extends StatefulWidget {
   SupportSpaceView(
       {Key? key,
       this.spaceName,
+      this.spaceDescription,
       this.spaceCategory,
       this.spaceMembers,
       this.spaceImg})
@@ -31,6 +33,7 @@ class _SupportSpaceViewState extends State<SupportSpaceView> {
             MaterialPageRoute(
                 builder: (context) => SupportSpaceInfo(
                       spaceName: this.widget.spaceName,
+                      spaceDescription: this.widget.spaceDescription,
                       spaceImg: this.widget.spaceImg,
                       spaceCategory: this.widget.spaceCategory,
                       spaceMembers: this.widget.spaceMembers,
@@ -46,13 +49,13 @@ class _SupportSpaceViewState extends State<SupportSpaceView> {
           child: ListTile(
             leading: Image.asset(
               this.widget.spaceImg,
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
             ),
             title: Text(
               this.widget.spaceName,
               style: GoogleFonts.nunitoSans(
-                fontSize: 18.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: .3,
               ),
