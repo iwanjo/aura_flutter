@@ -29,7 +29,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
       TextEditingController();
 
   File? image;
-  File? bannerImage;
 
   FirebaseStorage storage = FirebaseStorage.instance;
   Future pickCamera() async {
@@ -56,38 +55,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
       final imageTemporary = File(image.path);
       setState(() {
         this.image = imageTemporary;
-      });
-    } on PlatformException catch (e) {
-      print("Failed to pick Image: $e");
-    }
-  }
-
-  Future pickBannerCamera() async {
-    try {
-      final bannerImage =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (bannerImage == null) {
-        return;
-      }
-      final bannerImageTemporary = File(bannerImage.path);
-      setState(() {
-        this.bannerImage = bannerImageTemporary;
-      });
-    } on PlatformException catch (e) {
-      print("Failed to pick Image: $e");
-    }
-  }
-
-  Future pickBannerGallery() async {
-    try {
-      final bannerImage =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (bannerImage == null) {
-        return;
-      }
-      final bannerImageTemporary = File(bannerImage.path);
-      setState(() {
-        this.bannerImage = bannerImageTemporary;
       });
     } on PlatformException catch (e) {
       print("Failed to pick Image: $e");
@@ -121,48 +88,16 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
             {print("Upload file path error ${error.toString()} ")});
   }
 
-  Future uploadBannerImageToFirebase(BuildContext context) async {
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    captureData(fileName);
-    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('banners')
-        .child('/$fileName');
-
-    final metadata = firebase_storage.SettableMetadata(
-        contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': fileName});
-    firebase_storage.UploadTask uploadTask;
-    uploadTask = ref.putFile(io.File(image!.path), metadata);
-
-    uploadTask.then((TaskSnapshot taskSnapshot) {
-      taskSnapshot.ref
-          .getDownloadURL()
-          .then((imageUrl) => {captureData(imageUrl)});
-    });
-
-    firebase_storage.UploadTask task = await Future.value(uploadTask);
-    Future.value(uploadTask)
-        .then((value) => {print("Upload file path ${value.ref.fullPath}")})
-        .onError((error, stackTrace) =>
-            {print("Upload file path error ${error.toString()} ")});
-  }
-
-  captureBannerImg(String bannerUrl) {}
-
   captureData(String imageUrl) {
     FirebaseFirestore.instance.collection("supportSpaces").add({
       'spaceName': spaceNameController.text,
       'spaceDescription': spaceDescriptionController.text,
       'logoUrl': imageUrl,
-      'bannerImg': imageUrl,
-      // 'bannerImg': bannerImgUrl,
     });
   }
 
   runAll() {
     uploadImageToFirebase(context);
-    uploadBannerImageToFirebase(context);
     Navigator.push(
         context,
         PageTransition(
@@ -191,6 +126,15 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
           SizedBox(
             height: 20,
           ),
+          Text(
+            "Logo Image",
+            style: GoogleFonts.nunitoSans(
+              fontSize: 15.0,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           image != null
               ? Image.file(image!, width: 200, height: 100)
               : Container(
@@ -209,28 +153,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
           SizedBox(
             height: 20,
           ),
-          Text(
-            "Banner",
-            style: GoogleFonts.nunitoSans(
-              fontSize: 15.0,
-            ),
-          ),
-          bannerImage != null
-              ? Image.file(bannerImage!,
-                  width: MediaQuery.of(context).size.width, height: 100)
-              : Container(
-                  width: double.infinity,
-                  height: 90,
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: TextButton(
-                      child: Text("Upload Banner",
-                          style: GoogleFonts.nunitoSans(
-                              fontWeight: FontWeight.bold)),
-                      onPressed: showOptions2,
-                    ),
-                  ),
-                ),
           SizedBox(
             height: 20,
           ),
@@ -337,32 +259,6 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
                     style: GoogleFonts.nunitoSans(),
                   ),
                   onTap: pickCamera,
-                ),
-              ],
-            ));
-  }
-
-  showOptions2() {
-    return showModalBottomSheet(
-        context: context,
-        builder: (context) => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.image),
-                  title: Text(
-                    "Gallery",
-                    style: GoogleFonts.nunitoSans(),
-                  ),
-                  onTap: pickBannerGallery,
-                ),
-                ListTile(
-                  leading: Icon(Icons.camera),
-                  title: Text(
-                    "Camera",
-                    style: GoogleFonts.nunitoSans(),
-                  ),
-                  onTap: pickBannerCamera,
                 ),
               ],
             ));

@@ -31,7 +31,7 @@ class _PageRoutesState extends State<PageRoutes> {
       uid: user!.uid,
     ),
     CommunitySpaces(uid: user!.uid),
-    Profile()
+    Profile(uid: user!.uid)
   ];
   @override
   Widget build(BuildContext context) {
