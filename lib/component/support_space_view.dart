@@ -4,20 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SupportSpaceView extends StatefulWidget {
-  var spaceName;
-  var spaceDescription;
-  var spaceCategory;
-  var spaceMembers;
   var spaceImg;
+  var spaceName;
+  var spaceCategory;
+  var spaceDescription;
 
-  SupportSpaceView(
-      {Key? key,
-      this.spaceName,
-      this.spaceDescription,
-      this.spaceCategory,
-      this.spaceMembers,
-      this.spaceImg})
-      : super(key: key);
+  SupportSpaceView({
+    Key? key,
+    this.spaceImg,
+    this.spaceName,
+    this.spaceCategory,
+    this.spaceDescription,
+  }) : super(key: key);
 
   @override
   _SupportSpaceViewState createState() => _SupportSpaceViewState();
@@ -36,7 +34,6 @@ class _SupportSpaceViewState extends State<SupportSpaceView> {
                       spaceDescription: this.widget.spaceDescription,
                       spaceImg: this.widget.spaceImg,
                       spaceCategory: this.widget.spaceCategory,
-                      spaceMembers: this.widget.spaceMembers,
                     )));
       },
       child: DecoratedBox(
@@ -47,7 +44,7 @@ class _SupportSpaceViewState extends State<SupportSpaceView> {
         child: Padding(
           padding: EdgeInsets.all(12),
           child: ListTile(
-            leading: Image.asset(
+            leading: Image.network(
               this.widget.spaceImg,
               height: 70,
               width: 70,

@@ -1,11 +1,13 @@
 import 'package:aura_flutter/component/create_support_space.dart';
+import 'package:aura_flutter/component/new_space.dart';
 import 'package:aura_flutter/component/support_space_view.dart';
+import 'package:aura_flutter/views/support_space_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class SupportSpaces extends StatefulWidget {
   final String? uid;
@@ -32,6 +34,56 @@ class _SupportSpacesState extends State<SupportSpaces>
   Widget build(BuildContext context) {
     TabController _spaceTabBarController =
         TabController(length: 8, vsync: this);
+
+    spaceCard(NewSpace attribute) {
+      return InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SupportSpaceInfo(
+                      spaceName: attribute.spaceName,
+                      spaceDescription: attribute.spaceDescription,
+                      spaceImg: attribute.logo,
+                      spaceCategory: attribute.spaceCategory)));
+        },
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: ListTile(
+                leading: Image.network(
+                  attribute.logo,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+                title: Text(
+                  attribute.spaceName,
+                  style: GoogleFonts.nunitoSans(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: .3,
+                  ),
+                ),
+                subtitle: Text(
+                  attribute.spaceCategory,
+                  style: GoogleFonts.nunitoSans(
+                    fontSize: 13.0,
+                    letterSpacing: .1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -128,7 +180,36 @@ class _SupportSpacesState extends State<SupportSpaces>
               child: TabBarView(
                 controller: _spaceTabBarController,
                 children: [
-                  allSpacesView(),
+                  FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection("supportSpaces")
+                          .get(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                              snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                Map<String, dynamic> spaceMap =
+                                    snapshot.data!.docs[index].data();
+
+                                NewSpace attribute = NewSpace(
+                                  spaceMap['logoUrl'],
+                                  spaceMap['spaceName'],
+                                  spaceMap['spaceCategory'],
+                                  spaceMap['spaceDescription'],
+                                );
+                                return spaceCard(attribute);
+                              });
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.none) {
+                          return Text("Sorry, there was an error");
+                        }
+                        return Text("Loading Information...");
+                      }),
                   allSpacesView(),
                   allSpacesView(),
                   allSpacesView(),
@@ -164,34 +245,34 @@ class _SupportSpacesState extends State<SupportSpaces>
       child: Column(
         children: <Widget>[
           SupportSpaceView(
+            spaceImg:
+                "https://cdn-icons.flaticon.com/png/512/1048/premium/1048611.png?token=exp=1639501620~hmac=cbad1eb839d130b7d1c2a5e8aded9cdc",
             spaceName: "Healthy Living",
             spaceCategory: "Health",
             spaceDescription:
                 "We are an open community of all people who are keen on embracing healthy living habits and changing their perspective on diet and exercise.",
-            spaceMembers: "392 members",
-            spaceImg: "assets/healthy.png",
           ),
           SizedBox(
             height: 24,
           ),
           SupportSpaceView(
+            spaceImg:
+                "https://cdn-icons.flaticon.com/png/512/2936/premium/2936758.png?token=exp=1639501558~hmac=7ad4f07dc6077067492e6e78e34f169a",
             spaceName: "Financial Growth",
             spaceCategory: "Financial",
             spaceDescription:
                 "Welcome to Financial Growth. This support space exists to share stories of carefully managing one's finances, ethically growing one's money and great investment topics.",
-            spaceMembers: "456 members",
-            spaceImg: "assets/profits.png",
           ),
           SizedBox(
             height: 24,
           ),
           SupportSpaceView(
+            spaceImg:
+                "https://cdn-icons.flaticon.com/png/512/2964/premium/2964522.png?token=exp=1639501664~hmac=c6c547ff2e0e0b9085e385aacaab6268",
             spaceName: "Fitness Faction",
             spaceDescription:
                 "This is Fitness Faction. Feel free to join our community. We know how hard it is to maintain a consistent health and fitness regiment. That's why we created this support space, to help motivate all among us to keep going and surpass our limits.",
             spaceCategory: "Health",
-            spaceMembers: "532 members",
-            spaceImg: "assets/fitness.png",
           ),
           SizedBox(
             height: 24,
@@ -201,8 +282,8 @@ class _SupportSpacesState extends State<SupportSpaces>
             spaceCategory: "Addiction",
             spaceDescription:
                 "Beating an addiction is hard without support or guidance. For Sobriety is a group dedicated to ensuring we can all beat the odds and become sober with an extensive support unit.",
-            spaceMembers: "197 members",
-            spaceImg: "assets/alcohol.png",
+            spaceImg:
+                "https://cdn-icons.flaticon.com/png/512/3098/premium/3098142.png?token=exp=1639501709~hmac=320d7b29e89ca1c074372b608e95beff",
           ),
         ],
       ),

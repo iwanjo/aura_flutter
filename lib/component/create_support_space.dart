@@ -25,6 +25,8 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
   final user = FirebaseAuth.instance.currentUser;
 
   final TextEditingController spaceNameController = TextEditingController();
+  final TextEditingController spaceCategoryController = TextEditingController();
+
   final TextEditingController spaceDescriptionController =
       TextEditingController();
 
@@ -92,6 +94,7 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
     FirebaseFirestore.instance.collection("supportSpaces").add({
       'spaceName': spaceNameController.text,
       'spaceDescription': spaceDescriptionController.text,
+      'spaceCategory': spaceCategoryController.text,
       'logoUrl': imageUrl,
     });
   }
@@ -217,6 +220,37 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
             },
           ),
           SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            style: GoogleFonts.nunitoSans(
+              color: Colors.black,
+              fontSize: 15.0,
+            ),
+            controller: spaceCategoryController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                fillColor: Colors.grey[100],
+                filled: true,
+                errorStyle: GoogleFonts.nunitoSans(
+                    color: Colors.red[900], fontSize: 15.0),
+                labelText: "Space Category",
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                hintText: 'Enter your space category',
+                hintStyle:
+                    GoogleFonts.nunitoSans(color: Colors.grey, fontSize: 15.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(width: 3, color: Colors.grey.shade200),
+                )),
+            validator: (String? value) {
+              if (value != null && value.isEmpty) {
+                return "Please enter the support space category";
+              }
+              return null;
+            },
+          ),
+          SizedBox(
             height: 24,
           ),
           ElevatedButton(
@@ -268,6 +302,7 @@ class _CreateSupportSpaceState extends State<CreateSupportSpace> {
   void dispose() {
     super.dispose();
     spaceNameController.dispose();
+    spaceDescriptionController.dispose();
     spaceDescriptionController.dispose();
   }
 }

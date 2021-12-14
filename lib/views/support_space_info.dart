@@ -6,14 +6,12 @@ class SupportSpaceInfo extends StatefulWidget {
   var spaceName;
   var spaceDescription;
   var spaceCategory;
-  var spaceMembers;
   var spaceImg;
   SupportSpaceInfo(
       {Key? key,
       this.spaceName,
       this.spaceDescription,
       this.spaceCategory,
-      this.spaceMembers,
       this.spaceImg})
       : super(key: key);
 
@@ -45,15 +43,15 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 30.0,
+                vertical: 10.0,
               ),
             ),
             Align(
               alignment: Alignment.topLeft,
-              child: Image.asset(
+              child: Image.network(
                 this.widget.spaceImg,
-                width: 75.0,
-                height: 75.0,
+                width: 75,
+                height: 75,
               ),
             ),
             SizedBox(
@@ -73,10 +71,10 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  this.widget.spaceMembers,
-                  style: GoogleFonts.nunitoSans(),
-                )
+                // Text(
+                //   this.widget.spaceMembers,
+                //   style: GoogleFonts.nunitoSans(),
+                // )
               ],
             ),
             SizedBox(
