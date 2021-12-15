@@ -193,7 +193,7 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
                         CircleAvatar(
                           backgroundColor: Colors.blue[800],
                           child: Text(
-                            "NA",
+                            "AB",
                             style: GoogleFonts.nunitoSans(
                               fontSize: 14.0,
                               color: Colors.white,
@@ -208,7 +208,7 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "NarutoAtano4",
+                              "Aurabot",
                               style: GoogleFonts.nunitoSans(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,
