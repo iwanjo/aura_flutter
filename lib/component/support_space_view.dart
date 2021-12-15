@@ -46,8 +46,8 @@ class _SupportSpaceViewState extends State<SupportSpaceView> {
           child: ListTile(
             leading: Image.network(
               this.widget.spaceImg,
-              height: 70,
-              width: 70,
+              height: 50,
+              width: 50,
             ),
             title: Text(
               this.widget.spaceName,

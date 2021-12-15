@@ -67,16 +67,6 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // Text(
-                //   this.widget.spaceMembers,
-                //   style: GoogleFonts.nunitoSans(),
-                // )
-              ],
-            ),
             SizedBox(
               height: 20,
             ),
@@ -93,7 +83,7 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
               style: GoogleFonts.nunitoSans(
                 fontSize: 15.0,
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -33,7 +33,7 @@ class _SupportSpacesState extends State<SupportSpaces>
   @override
   Widget build(BuildContext context) {
     TabController _spaceTabBarController =
-        TabController(length: 8, vsync: this);
+        TabController(length: 4, vsync: this);
 
     spaceCard(NewSpace attribute) {
       return InkWell(
@@ -164,13 +164,9 @@ class _SupportSpacesState extends State<SupportSpaces>
                     paintingStyle: PaintingStyle.fill),
                 tabs: [
                   Tab(text: "All"),
+                  Tab(text: "Health"),
                   Tab(text: "Addiction"),
                   Tab(text: "Financial"),
-                  Tab(text: "Marital"),
-                  Tab(text: "Health"),
-                  Tab(text: "Family"),
-                  Tab(text: "Relationships"),
-                  Tab(text: "Career"),
                 ],
               ),
             ),
@@ -210,13 +206,9 @@ class _SupportSpacesState extends State<SupportSpaces>
                         }
                         return Text("Loading Information...");
                       }),
-                  allSpacesView(),
-                  allSpacesView(),
-                  allSpacesView(),
-                  allSpacesView(),
-                  allSpacesView(),
-                  allSpacesView(),
-                  allSpacesView(),
+                  healthSpacesView(),
+                  addictionSpacesView(),
+                  financialSpacesView(),
                 ],
               ),
             ),
@@ -245,8 +237,7 @@ class _SupportSpacesState extends State<SupportSpaces>
       child: Column(
         children: <Widget>[
           SupportSpaceView(
-            spaceImg:
-                "https://cdn-icons.flaticon.com/png/512/1048/premium/1048611.png?token=exp=1639501620~hmac=cbad1eb839d130b7d1c2a5e8aded9cdc",
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/706/706164.png",
             spaceName: "Healthy Living",
             spaceCategory: "Health",
             spaceDescription:
@@ -256,8 +247,7 @@ class _SupportSpacesState extends State<SupportSpaces>
             height: 24,
           ),
           SupportSpaceView(
-            spaceImg:
-                "https://cdn-icons.flaticon.com/png/512/2936/premium/2936758.png?token=exp=1639501558~hmac=7ad4f07dc6077067492e6e78e34f169a",
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/2933/2933116.png",
             spaceName: "Financial Growth",
             spaceCategory: "Financial",
             spaceDescription:
@@ -267,8 +257,7 @@ class _SupportSpacesState extends State<SupportSpaces>
             height: 24,
           ),
           SupportSpaceView(
-            spaceImg:
-                "https://cdn-icons.flaticon.com/png/512/2964/premium/2964522.png?token=exp=1639501664~hmac=c6c547ff2e0e0b9085e385aacaab6268",
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/2964/2964514.png",
             spaceName: "Fitness Faction",
             spaceDescription:
                 "This is Fitness Faction. Feel free to join our community. We know how hard it is to maintain a consistent health and fitness regiment. That's why we created this support space, to help motivate all among us to keep going and surpass our limits.",
@@ -282,8 +271,74 @@ class _SupportSpacesState extends State<SupportSpaces>
             spaceCategory: "Addiction",
             spaceDescription:
                 "Beating an addiction is hard without support or guidance. For Sobriety is a group dedicated to ensuring we can all beat the odds and become sober with an extensive support unit.",
-            spaceImg:
-                "https://cdn-icons.flaticon.com/png/512/3098/premium/3098142.png?token=exp=1639501709~hmac=320d7b29e89ca1c074372b608e95beff",
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/6397/6397250.png",
+          ),
+        ],
+      ),
+    );
+  }
+
+  financialSpacesView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          SupportSpaceView(
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/2933/2933116.png",
+            spaceName: "Financial Growth",
+            spaceCategory: "Financial",
+            spaceDescription:
+                "Welcome to Financial Growth. This support space exists to share stories of carefully managing one's finances, ethically growing one's money and great investment topics.",
+          ),
+        ],
+      ),
+    );
+  }
+
+  healthSpacesView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          SupportSpaceView(
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/706/706164.png",
+            spaceName: "Healthy Living",
+            spaceCategory: "Health",
+            spaceDescription:
+                "We are an open community of all people who are keen on embracing healthy living habits and changing their perspective on diet and exercise.",
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          SupportSpaceView(
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/2964/2964514.png",
+            spaceName: "Fitness Faction",
+            spaceDescription:
+                "This is Fitness Faction. Feel free to join our community. We know how hard it is to maintain a consistent health and fitness regiment. That's why we created this support space, to help motivate all among us to keep going and surpass our limits.",
+            spaceCategory: "Health",
+          ),
+        ],
+      ),
+    );
+  }
+
+  addictionSpacesView() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          SupportSpaceView(
+            spaceName: "For Sobriety",
+            spaceCategory: "Addiction",
+            spaceDescription:
+                "Beating an addiction is hard without support or guidance. For Sobriety is a group dedicated to ensuring we can all beat the odds and become sober with an extensive support unit.",
+            spaceImg: "https://cdn-icons-png.flaticon.com/512/6397/6397250.png",
           ),
         ],
       ),
