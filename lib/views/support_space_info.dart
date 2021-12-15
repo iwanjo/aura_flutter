@@ -36,7 +36,7 @@ class _SupportSpaceInfoState extends State<SupportSpaceInfo> {
             width: 40,
           ),
           content: Text(
-            "You are about to join " + this.widget.spaceName,
+            "You're joining ' " + this.widget.spaceName,
             style: GoogleFonts.nunitoSans(
               fontSize: 15.0,
               fontWeight: FontWeight.bold,
