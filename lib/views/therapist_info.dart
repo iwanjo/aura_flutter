@@ -166,6 +166,17 @@ class _TherapistInformationState extends State<TherapistInformation> {
               textAlign: TextAlign.justify,
             ),
             SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Book a session with " + first[0],
+              style: GoogleFonts.nunitoSans(
+                fontSize: 18,
+                letterSpacing: .03,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
               height: 16,
             ),
             Row(
